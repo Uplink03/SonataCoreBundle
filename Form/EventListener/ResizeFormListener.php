@@ -159,7 +159,10 @@ class ResizeFormListener implements EventSubscriberInterface
                 );
 
                 if ($this->preBindDataCallback) {
-                    $buildOptions['data'] = call_user_func($this->preBindDataCallback, $value);
+                    $newData = call_user_func($this->preBindDataCallback, $value);
+                    if (!is_null($newData)) {
+                        $buildOptions['data'] = $newData;
+                    }
                 }
 
                 $options = array_merge($this->typeOptions, $buildOptions);
